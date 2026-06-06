@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2 di Grano — Pizzeria Artigianale Eboli</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  :root{
+    --rosso:#B83A1A;
+    --rosso-dark:#8B2910;
+    --crema:#FDF6EC;
+    --crema-dark:#F5E8D0;
+    --verde:#2D5016;
+    --testo:#1a1a1a;
+    --testo-light:#555;
+    --oro:#C9932A;
+  }
+  html{scroll-behavior:smooth}
+  body{font-family:'Lato',sans-serif;color:var(--testo);background:var(--crema);overflow-x:hidden}
+  nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(26,10,4,0.96);backdrop-filter:blur(8px);padding:0 2rem}
+  .nav-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:64px}
+  .nav-logo{font-family:'Playfair Display',serif;color:#FDF6EC;font-size:1.4rem;letter-spacing:1px}
+  .nav-logo span{color:var(--oro)}
+  .nav-links{display:flex;gap:2rem;list-style:none}
+  .nav-links a{color:rgba(253,246,236,0.8);text-decoration:none;font-size:0.85rem;letter-spacing:1.5px;text-transform:uppercase;transition:color 0.2s}
+  .nav-links a:hover{color:var(--oro)}
+  .nav-cta{background:var(--rosso);color:#FDF6EC;padding:8px 20px;border-radius:2px;text-decoration:none;font-size:0.82rem;letter-spacing:1.5px;text-transform:uppercase;transition:background 0.2s}
+  .nav-cta:hover{background:var(--rosso-dark)}
+  .hero{min-height:100vh;background:linear-gradient(160deg,#1a0a04 0%,#2D1508 50%,#1a0a04 100%);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;padding-top:64px}
+  .hero-bg{position:absolute;inset:0;opacity:0.07;background-image:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23FDF6EC' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")}
+  .hero-pizza{position:absolute;right:-80px;top:50%;transform:translateY(-50%);width:600px;height:600px;border-radius:50%;background:radial-gradient(circle at 40% 40%,#c8691a,#8B3A0A,#5a2005);opacity:0.25}
+  .hero-content{text-align:center;position:relative;z-index:2;padding:2rem}
+  .hero-eyebrow{color:var(--oro);font-size:0.8rem;letter-spacing:4px;text-transform:uppercase;margin-bottom:1.5rem;font-weight:300}
+  .hero-title{font-family:'Playfair Display',serif;font-size:clamp(3rem,8vw,6rem);color:#FDF6EC;line-height:1.05;margin-bottom:1rem}
+  .hero-title em{color:var(--oro);font-style:italic}
+  .hero-sub{color:rgba(253,246,236,0.65);font-size:1.1rem;font-weight:300;margin-bottom:0.5rem;letter-spacing:0.5px}
+  .hero-indirizzo{color:rgba(253,246,236,0.4);font-size:0.85rem;letter-spacing:2px;text-transform:uppercase;margin-bottom:2.5rem}
+  .hero-buttons{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
+  .btn-primary{background:var(--rosso);color:#FDF6EC;padding:14px 36px;text-decoration:none;font-size:0.85rem;letter-spacing:2px;text-transform:uppercase;border-radius:2px;transition:background 0.2s}
+  .btn-primary:hover{background:var(--rosso-dark)}
+  .btn-outline{border:1px solid rgba(253,246,236,0.3);color:#FDF6EC;padding:14px 36px;text-decoration:none;font-size:0.85rem;letter-spacing:2px;text-transform:uppercase;border-radius:2px;transition:all 0.2s}
+  .btn-outline:hover{border-color:var(--oro);color:var(--oro)}
+  .hero-scroll{position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);color:rgba(253,246,236,0.3);font-size:0.75rem;letter-spacing:3px;text-transform:uppercase;display:flex;flex-direction:column;align-items:center;gap:8px}
+  .scroll-line{width:1px;height:40px;background:linear-gradient(to bottom,rgba(253,246,236,0.3),transparent)}
+  section{padding:5rem 2rem}
+  .container{max-width:1100px;margin:0 auto}
+  .section-eyebrow{color:var(--rosso);font-size:0.75rem;letter-spacing:4px;text-transform:uppercase;margin-bottom:0.75rem;font-weight:700}
+  .section-title{font-family:'Playfair Display',serif;font-size:clamp(2rem,4vw,3rem);margin-bottom:1.5rem;line-height:1.15}
+  .section-divider{width:48px;height:2px;background:var(--oro);margin-bottom:2rem}
+  .chi-siamo{background:#fff}
+  .chi-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center}
+  .chi-img{position:relative}
+  .chi-img-main{width:100%;height:420px;background:linear-gradient(135deg,#8B3A0A,#C8691A,#5a2005);border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:5rem;color:rgba(255,255,255,0.15)}
+  .chi-img-badge{position:absolute;bottom:-1.5rem;right:-1.5rem;background:#1a0a04;color:var(--crema);padding:1.5rem;text-align:center;border-radius:2px}
+  .chi-img-badge strong{display:block;font-family:'Playfair Display',serif;font-size:2rem;color:var(--oro)}
+  .chi-img-badge span{font-size:0.7rem;letter-spacing:2px;text-transform:uppercase;opacity:0.7}
+  .chi-text p{color:var(--testo-light);line-height:1.9;margin-bottom:1rem;font-size:1rem}
+  .chi-values{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:2rem}
+  .chi-value{padding:1rem;border-left:3px solid var(--oro)}
+  .chi-value strong{display:block;font-size:0.85rem;letter-spacing:1px;text-transform:uppercase;color:var(--rosso);margin-bottom:0.25rem}
+  .chi-value span{font-size:0.9rem;color:var(--testo-light)}
+  .menu-section{background:var(--crema)}
+  .menu-tabs{display:flex;gap:0;margin-bottom:3rem;border-bottom:2px solid var(--crema-dark)}
+  .tab-btn{padding:0.75rem 1.5rem;background:none;border:none;font-family:'Lato',sans-serif;font-size:0.8rem;letter-spacing:2px;text-transform:uppercase;color:var(--testo-light);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-2px;transition:all 0.2s}
+  .tab-btn.active{color:var(--rosso);border-bottom-color:var(--rosso);font-weight:700}
+  .tab-content{display:none}
+  .tab-content.active{display:block}
+  .menu-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1.5rem}
+  .menu-card{background:#fff;border-radius:4px;overflow:hidden;transition:transform 0.2s;box-shadow:0 2px 12px rgba(0,0,0,0.06)}
+  .menu-card:hover{transform:translateY(-4px)}
+  .menu-card-img{height:160px;display:flex;align-items:center;justify-content:center;font-size:3.5rem;position:relative;overflow:hidden}
+  .mc-margherita{background:linear-gradient(135deg,#c0392b,#e74c3c)}
+  .mc-diavola{background:linear-gradient(135deg,#8B0000,#c0392b)}
+  .mc-bianca{background:linear-gradient(135deg,#c8a96e,#e8d5a3)}
+  .mc-ortolana{background:linear-gradient(135deg,#1a7a2a,#2ecc71)}
+  .mc-mare{background:linear-gradient(135deg,#1a5f8a,#3498db)}
+  .mc-prosciutto{background:linear-gradient(135deg,#c06030,#e8a080)}
+  .mc-antipasto{background:linear-gradient(135deg,#7a5020,#c8902a)}
+  .mc-pasta{background:linear-gradient(135deg,#c8a020,#e8c860)}
+  .mc-dolce{background:linear-gradient(135deg,#8B3A8B,#c87ac8)}
+  .mc-vino{background:linear-gradient(135deg,#5a1020,#a03050)}
+  .menu-card-body{padding:1.25rem}
+  .menu-card-name{font-family:'Playfair Display',serif;font-size:1.15rem;margin-bottom:0.25rem}
+  .menu-card-desc{font-size:0.85rem;color:var(--testo-light);line-height:1.6;margin-bottom:0.75rem}
+  .menu-card-footer{display:flex;justify-content:space-between;align-items:center}
+  .menu-price{font-weight:700;font-size:1.1rem;color:var(--rosso)}
+  .menu-tag{font-size:0.7rem;letter-spacing:1px;text-transform:uppercase;background:var(--crema-dark);padding:3px 8px;border-radius:2px;color:var(--testo-light)}
+  .specialita{background:linear-gradient(160deg,#1a0a04,#2D1508)}
+  .specialita .section-title{color:#FDF6EC}
+  .specialita .section-eyebrow{color:var(--oro)}
+  .specialita .section-divider{background:var(--rosso)}
+  .spec-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem}
+  .spec-card{text-align:center;padding:2.5rem 1.5rem;border:1px solid rgba(253,246,236,0.1);border-radius:4px;transition:border-color 0.2s}
+  .spec-card:hover{border-color:var(--oro)}
+  .spec-icon{font-size:2.5rem;margin-bottom:1rem}
+  .spec-title{font-family:'Playfair Display',serif;color:#FDF6EC;font-size:1.2rem;margin-bottom:0.75rem}
+  .spec-desc{color:rgba(253,246,236,0.5);font-size:0.9rem;line-height:1.7}
+  .galleria{background:#fff}
+  .gallery-grid{display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:200px 200px;gap:12px}
+  .gallery-item{border-radius:4px;overflow:hidden;display:flex;align-items:center;justify-content:center;font-size:2.5rem;position:relative;cursor:pointer}
+  .gallery-item:first-child{grid-row:span 2;font-size:4rem}
+  .gi-1{background:linear-gradient(135deg,#8B3A0A,#C8691A)}
+  .gi-2{background:linear-gradient(135deg,#1a7a2a,#2ecc71)}
+  .gi-3{background:linear-gradient(135deg,#c0392b,#e74c3c)}
+  .gi-4{background:linear-gradient(135deg,#c8a020,#e8c860)}
+  .gi-5{background:linear-gradient(135deg,#1a5f8a,#3498db)}
+  .gallery-label{position:absolute;bottom:0;left:0;right:0;background:rgba(26,10,4,0.7);color:#FDF6EC;padding:0.5rem 0.75rem;font-size:0.75rem;letter-spacing:1px;text-transform:uppercase;opacity:0;transition:opacity 0.2s}
+  .gallery-item:hover .gallery-label{opacity:1}
+  .info-section{background:var(--crema)}
+  .info-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:2rem}
+  .info-card{background:#fff;padding:2rem;border-radius:4px;border-top:3px solid var(--rosso)}
+  .info-card-icon{width:44px;height:44px;background:var(--crema-dark);border-radius:50%;display:flex;align-items:center;justify-content:center;margin-bottom:1.25rem;font-size:1.3rem}
+  .info-card h3{font-family:'Playfair Display',serif;font-size:1.2rem;margin-bottom:1rem}
+  .orari-row{display:flex;justify-content:space-between;padding:0.4rem 0;border-bottom:1px solid var(--crema-dark);font-size:0.9rem}
+  .orari-row:last-child{border-bottom:none}
+  .orari-row span:first-child{color:var(--testo-light)}
+  .orari-row span:last-child{font-weight:700;color:var(--rosso)}
+  .chiuso{color:#999 !important;font-style:italic}
+  .info-p{font-size:0.9rem;color:var(--testo-light);line-height:1.8;margin-bottom:0.5rem}
+  .info-p strong{color:var(--testo)}
+  .prenota-section{background:linear-gradient(160deg,#1a0a04,#2D1508);padding:5rem 2rem}
+  .prenota-inner{max-width:600px;margin:0 auto;text-align:center}
+  .prenota-inner .section-title{color:#FDF6EC}
+  .prenota-inner .section-eyebrow{color:var(--oro)}
+  .prenota-inner p{color:rgba(253,246,236,0.6);margin-bottom:2rem;line-height:1.8}
+  .prenota-form{display:grid;grid-template-columns:1fr 1fr;gap:1rem;text-align:left}
+  .form-group{display:flex;flex-direction:column;gap:6px}
+  .form-group.full{grid-column:span 2}
+  .form-group label{font-size:0.75rem;letter-spacing:2px;text-transform:uppercase;color:rgba(253,246,236,0.5)}
+  .form-group input,.form-group select,.form-group textarea{background:rgba(253,246,236,0.08);border:1px solid rgba(253,246,236,0.15);color:#FDF6EC;padding:10px 14px;border-radius:2px;font-family:'Lato',sans-serif;font-size:0.9rem;outline:none;transition:border-color 0.2s}
+  .form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--oro)}
+  .form-group select option{background:#1a0a04;color:#FDF6EC}
+  .form-group textarea{resize:none;height:80px}
+  .prenota-submit{grid-column:span 2;background:var(--rosso);color:#FDF6EC;border:none;padding:14px;font-family:'Lato',sans-serif;font-size:0.85rem;letter-spacing:2px;text-transform:uppercase;border-radius:2px;cursor:pointer;margin-top:0.5rem;transition:background 0.2s}
+  .prenota-submit:hover{background:var(--rosso-dark)}
+  footer{background:#0e0503;padding:3rem 2rem 1.5rem}
+  .footer-inner{max-width:1100px;margin:0 auto}
+  .footer-top{display:grid;grid-template-columns:2fr 1fr 1fr;gap:3rem;margin-bottom:2.5rem}
+  .footer-brand .nav-logo{display:block;margin-bottom:1rem;font-size:1.6rem}
+  .footer-brand p{color:rgba(253,246,236,0.4);font-size:0.85rem;line-height:1.8}
+  .footer-col h4{color:var(--oro);font-size:0.75rem;letter-spacing:3px;text-transform:uppercase;margin-bottom:1rem}
+  .footer-col ul{list-style:none}
+  .footer-col ul li{margin-bottom:0.5rem}
+  .footer-col ul li a{color:rgba(253,246,236,0.5);text-decoration:none;font-size:0.9rem;transition:color 0.2s}
+  .footer-col ul li a:hover{color:var(--oro)}
+  .footer-col p{color:rgba(253,246,236,0.5);font-size:0.85rem;line-height:1.8}
+  .footer-bottom{border-top:1px solid rgba(253,246,236,0.08);padding-top:1.5rem;display:flex;justify-content:space-between;align-items:center}
+  .footer-bottom p{color:rgba(253,246,236,0.25);font-size:0.8rem}
+  .toast{position:fixed;bottom:2rem;right:2rem;background:#1a7a2a;color:#fff;padding:1rem 1.5rem;border-radius:4px;font-size:0.9rem;z-index:999;transform:translateY(100px);opacity:0;transition:all 0.3s}
+  .toast.show{transform:translateY(0);opacity:1}
+  @media(max-width:768px){
+    .chi-grid,.spec-grid,.info-grid,.footer-top{grid-template-columns:1fr}
+    .chi-img{display:none}
+    .gallery-grid{grid-template-columns:1fr 1fr;grid-template-rows:auto}
+    .gallery-item:first-child{grid-row:span 1}
+    .prenota-form{grid-template-columns:1fr}
+    .form-group.full,.prenota-submit{grid-column:span 1}
+    .nav-links{display:none}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <div class="nav-logo">2 <span>di</span> Grano</div>
+    <ul class="nav-links">
+      <li><a href="#chi-siamo">Chi siamo</a></li>
+      <li><a href="#menu">Menu</a></li>
+      <li><a href="#galleria">Galleria</a></li>
+      <li><a href="#info">Dove siamo</a></li>
+    </ul>
+    <a href="#prenota" class="nav-cta">Prenota</a>
+  </div>
+</nav>
+
+<section class="hero" id="home">
+  <div class="hero-bg"></div>
+  <div class="hero-pizza"></div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">Pizzeria Artigianale dal 1998</p>
+    <h1 class="hero-title">La vera pizza<br><em>napoletana</em><br>a Eboli</h1>
+    <p class="hero-sub">Farina di grano antico, lievitazione 48 ore, forno a legna</p>
+    <p class="hero-indirizzo">📍 Via Italia 2, Eboli (SA)</p>
+    <div class="hero-buttons">
+      <a href="#menu" class="btn-primary">Scopri il menu</a>
+      <a href="#prenota" class="btn-outline">Prenota un tavolo</a>
+    </div>
+  </div>
+  <div class="hero-scroll"><div class="scroll-line"></div><span>Scorri</span></div>
+</section>
+
+<section class="chi-siamo" id="chi-siamo">
+  <div class="container">
+    <div class="chi-grid">
+      <div class="chi-img">
+        <div class="chi-img-main">🍕</div>
+        <div class="chi-img-badge"><strong>25+</strong><span>anni di passione</span></div>
+      </div>
+      <div class="chi-text">
+        <p class="section-eyebrow">La nostra storia</p>
+        <h2 class="section-title">Nati dalla passione<br>per il grano vero</h2>
+        <div class="section-divider"></div>
+        <p>Tutto iniziò nel 1998, quando Salvatore Esposito aprì le porte di questo piccolo locale nel cuore di Eboli con un sogno: portare in tavola la vera pizza napoletana, quella fatta come si faceva una volta, senza fretta e senza compromessi.</p>
+        <p>Il nome "2 di Grano" non è casuale. Rappresenta la semplicità degli ingredienti di qualità e il rispetto per la tradizione: solo farina di grano antico macinato a pietra, acqua, sale e lievito madre. Niente di più, niente di meno.</p>
+        <p>Oggi la pizzeria è portata avanti con lo stesso spirito dalla famiglia Esposito, con un forno a legna che non si è mai spento e ricette che si tramandano di generazione in generazione.</p>
+        <div class="chi-values">
+          <div class="chi-value"><strong>Farina macinata a pietra</strong><span>Grano antico selezionato</span></div>
+          <div class="chi-value"><strong>Lievitazione 48 ore</strong><span>Pizza leggera e digeribile</span></div>
+          <div class="chi-value"><strong>Forno a legna</strong><span>A 480°C per 90 secondi</span></div>
+          <div class="chi-value"><strong>Filiera locale</strong><span>Prodotti campani a km 0</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="menu-section" id="menu">
+  <div class="container">
+    <p class="section-eyebrow">La nostra cucina</p>
+    <h2 class="section-title">Il menu</h2>
+    <div class="section-divider"></div>
+    <div class="menu-tabs">
+      <button class="tab-btn active" onclick="showTab('pizze')">Pizze</button>
+      <button class="tab-btn" onclick="showTab('antipasti')">Antipasti</button>
+      <button class="tab-btn" onclick="showTab('primi')">Primi</button>
+      <button class="tab-btn" onclick="showTab('dolci')">Dolci</button>
+      <button class="tab-btn" onclick="showTab('bevande')">Bevande</button>
+    </div>
+    <div class="tab-content active" id="tab-pizze">
+      <div class="menu-grid">
+        <div class="menu-card"><div class="menu-card-img mc-margherita"><span>🍅</span></div><div class="menu-card-body"><div class="menu-card-name">Margherita del Maestro</div><div class="menu-card-desc">Pomodoro San Marzano DOP, fior di latte di Agerola, basilico fresco, olio EVO</div><div class="menu-card-footer"><span class="menu-price">€8,50</span><span class="menu-tag">Classica</span></div></div></div>
+        <div class="menu-card"><div class="menu-card-img mc-diavola"><span>🌶️</span></div><div class="menu-card-body"><div class="menu-card-name">Diavola Piccante</div><div class="menu-card-desc">Pomodoro, fior di latte, salame piccante calabrese, peperoncino fresco, origano</div><div class="menu-card-footer"><span class="menu-price">€10,00</span><span class="menu-tag">Piccante</span></div></div></div>
+        <div class="menu-card"><div class="menu-card-img mc-bianca"><span>🧄</span></div><div class="menu-card-body"><div class="menu-card-name">Bianca Riccia</div><div class="menu-card-desc">Crema di ricotta di bufala, provola affumicata, pancetta croccante, tartufo nero estivo</div><div class="menu-card-footer"><span class="menu-price">€13,00</span><span class="menu-tag">Signature</span></div></div></div>
+        <div class="menu-card"><div class="menu-card-img mc-ortolana"><span>🥦</span></div><div class="menu-card-body"><div class="menu-card-name">Ortolana di Stagione</div><div class="menu-card-desc">Pomodoro, zucchine grigliate, melanzane, peperoni arrosto, olive di Gaeta, pecorino</div><div class="menu-card-footer"><span class="menu-price">€10,50</span><span class="menu-tag">Vegetariana</span></div></div></div>
+        <div class="menu-card"><div class="menu-card-img mc-mare"><span>🐟</span></div><div class="menu-card-body"><div class="menu-card-name">Marinara del Cilento</div><div class="menu-card-desc">Pomodoro San Marzano, alici del Cilento, capperi di Pantelleria, origano selvatico, olio EVO</div><div class="menu-card-footer"><span class="menu-price">€9,50</span><span class="menu-tag">Tradizionale</span></div></div></div>
+        <div class="menu-card"><div class="menu-card-img mc-prosciutto"><span>🥩</span></div><div class="menu-card-body"><div class="menu-card-name">Cotto e Bufala</div><div class="menu-card-desc">Pomodoro, mozzarella di bufala campana DOP, prosciutto cotto artigianale, rucola, grana</div><div class="menu-card-footer"><span class="menu-price">€12,00</span><span class="menu-tag">Speciale</span></div></div></div>
+      </div>
+    </div>
+    <div class="tab-content" id="tab-antipasti">
+      <div class="menu-grid">
+        <div class="menu-card"><div class="menu-card-img mc-antipasto"><span>🫙</span></div><div class="menu-card-body"><div class="menu-card-name">Antipasto della Casa</div><div class="menu-card-desc">Salumi misti campani, formaggi stagionati, sott'oli artigianali, bruschette al pomodoro</div><div class="menu-card-footer"><span class="menu-price">€12,00</span><span class="menu-tag">Per 2 persone</span></div></div></div>
+        <div class="menu-card"><div class="menu-card-img mc-ortolana"><span>🍆</span></div><div class="menu-card-body"><div class="menu-card-name">Parmigiana Express</div><div class="menu-card-desc">Melanzane fritte, pomodoro, fior di latte, basilico e parmigiano reggiano 24 mesi</div><div class="menu-card-footer"><span class="menu-price">€7,50</span><span class="menu-tag">Classica</span></div></div></div>
+        <div class="menu-card"><div class="menu-card-img mc-bianca"><span>🧀</span></div><div class="menu-card-body"><div class="menu-card-name">Frittura Mista Napoletana</div><div class="menu-card-desc">Montanarine al ragù, crocchè di patate, frittatine di pasta, zeppoline alghe e acciughe</div><div class="menu-card-footer"><span class="menu-price">€9,00</span><span class="menu-tag">Fritta</span></div></div></div>
+      </div>
+    </div>
+    <div class="tab-content" id="tab-primi">
+      <div class="menu-grid">
+        <div class="menu-card"><div class="menu-card-img mc-pasta"><span>🍝</span></div><div class="menu-card-body"><div class="menu-card-name">Paccheri al Ragù Antico</div><div class="menu-card-desc">Paccheri di Gragnano, ragù napoletano cotto 6 ore, ricotta salata, basilico fresco</div><div class="menu-card-footer"><span class="menu-price">€11,00</span><span class="menu-tag">Tradizionale</span></div></div></div>
+        <div class="menu-card"><div class="menu-card-img mc-mare"><span>🦑</span></div><div class="menu-card-body"><div class="menu-card-name">Spaghetti alle Vongole</div><div class="menu-card-desc">Spaghetti, vongole veraci del Cilento, aglio, vino bianco, prezzemolo, peperoncino</div><div class="menu-card-footer"><span class="menu-price">€13,00</span><span class="menu-tag">Di mare</span></div></div></div>
+        <div class="menu-card"><div class="menu-card-img mc-antipasto"><span>🍋</span></div><div class="menu-card-body"><div class="menu-card-name">Risotto al Limone e Gamberi</div><div class="menu-card-desc">Riso Carnaroli, gamberi rosa, limone di Amalfi, zafferano, burro di Normandia, parmigiano</div><div class="menu-card-footer"><span class="menu-price">€14,00</span><span class="menu-tag">Speciale</span></div></div></div>
+      </div>
+    </div>
+    <div class="tab-content" id="tab-dolci">
+      <div class="menu-grid">
+        <div class="menu-card"><div class="menu-card-img mc-dolce"><span>🍮</span></div><div class="menu-card-body"><div class="menu-card-name">Pastiera Napoletana</div><div class="menu-card-desc">Ricetta della nonna Concetta, grano cotto, ricotta di pecora, arancia candita, acqua di fiori</div><div class="menu-card-footer"><span class="menu-price">€5,00</span><span class="menu-tag">Artigianale</span></div></div></div>
+        <div class="menu-card"><div class="menu-card-img mc-bianca"><span>🍰</span></div><div class="menu-card-body"><div class="menu-card-name">Delizia al Limone</div><div class="menu-card-desc">Pan di spagna al limone, crema chantilly, glassa al limoncello di Sorrento</div><div class="menu-card-footer"><span class="menu-price">€5,50</span><span class="menu-tag">Artigianale</span></div></div></div>
+        <div class="menu-card"><div class="menu-card-img mc-vino"><span>🍫</span></div><div class="menu-card-body"><div class="menu-card-name">Babà al Rum</div><div class="menu-card-desc">Babà artigianale inzuppato nel rum jamaicano invecchiato, panna fresca montata</div><div class="menu-card-footer"><span class="menu-price">€4,50</span><span class="menu-tag">Classico</span></div></div></div>
+      </div>
+    </div>
+    <div class="tab-content" id="tab-bevande">
+      <div class="menu-grid">
+        <div class="menu-card"><div class="menu-card-img mc-vino"><span>🍷</span></div><div class="menu-card-body"><div class="menu-card-name">Vini della Campania</div><div class="menu-card-desc">Falanghina IGT, Aglianico del Sele, Fiano di Avellino DOCG. Selezione di cantine locali</div><div class="menu-card-footer"><span class="menu-price">€4,50 / calice</span><span class="menu-tag">Locali</span></div></div></div>
+        <div class="menu-card"><div class="menu-card-img mc-mare"><span>🍺</span></div><div class="menu-card-body"><div class="menu-card-name">Birra Artigianale</div><div class="menu-card-desc">Selezione di birre artigianali campane: Chiara, Ambrata, Rossa e Weizen stagionale</div><div class="menu-card-footer"><span class="menu-price">€4,00 / 33cl</span><span class="menu-tag">Artigianale</span></div></div></div>
+        <div class="menu-card"><div class="menu-card-img mc-ortolana"><span>🍋</span></div><div class="menu-card-body"><div class="menu-card-name">Limoncello della Casa</div><div class="menu-card-desc">Preparato con limoni di Eboli biologici, ricetta di famiglia. Servito ghiacciato</div><div class="menu-card-footer"><span class="menu-price">€2,50</span><span class="menu-tag">Digestivo</span></div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="specialita">
+  <div class="container">
+    <p class="section-eyebrow">Perché sceglierci</p>
+    <h2 class="section-title" style="color:#FDF6EC">Il nostro metodo</h2>
+    <div class="section-divider"></div>
+    <div class="spec-grid">
+      <div class="spec-card"><div class="spec-icon">🌾</div><div class="spec-title">Farina di Grano Antico</div><div class="spec-desc">Utilizziamo esclusivamente farine di grani antichi come Senatore Cappelli e Tumminia, macinate a pietra da un mulino artigianale del Cilento. Più digeribili, più profumate, più vere.</div></div>
+      <div class="spec-card"><div class="spec-icon">⏳</div><div class="spec-title">48 ore di lievitazione</div><div class="spec-desc">Il nostro impasto riposa 48 ore in cella frigorifera con solo il 2% di lievito madre. Il risultato è una pizza leggera, friabile, che non appesantisce e si digerisce in poche ore.</div></div>
+      <div class="spec-card"><div class="spec-icon">🔥</div><div class="spec-title">Forno a Legna di Querce</div><div class="spec-desc">Il nostro forno in tufo e refrattario raggiunge i 480°C. Usiamo solo legna di quercia locale che conferisce un aroma unico. La pizza cuoce in 90 secondi, esattamente come vuole la tradizione.</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="galleria" id="galleria">
+  <div class="container">
+    <p class="section-eyebrow">Il nostro locale</p>
+    <h2 class="section-title">Galleria</h2>
+    <div class="section-divider"></div>
+    <div class="gallery-grid">
+      <div class="gallery-item gi-1"><span>🍕</span><div class="gallery-label">Il forno a legna</div></div>
+      <div class="gallery-item gi-2"><span>🥗</span><div class="gallery-label">Ingredienti freschi</div></div>
+      <div class="gallery-item gi-3"><span>👨‍🍳</span><div class="gallery-label">Il maestro pizzaiolo</div></div>
+      <div class="gallery-item gi-4"><span>🍷</span><div class="gallery-label">La sala interna</div></div>
+      <div class="gallery-item gi-5"><span>🌿</span><div class="gallery-label">Il dehors estivo</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="info-section" id="info">
+  <div class="container">
+    <p class="section-eyebrow">Vieni a trovarci</p>
+    <h2 class="section-title">Orari e informazioni</h2>
+    <div class="section-divider"></div>
+    <div class="info-grid">
+      <div class="info-card">
+        <div class="info-card-icon">🕐</div>
+        <h3>Orari di apertura</h3>
+        <div class="orari-row"><span>Lunedì</span><span class="chiuso">Chiuso</span></div>
+        <div class="orari-row"><span>Martedì – Venerdì</span><span>12:00–14:30 / 19:00–23:00</span></div>
+        <div class="orari-row"><span>Sabato</span><span>12:00–15:00 / 19:00–23:30</span></div>
+        <div class="orari-row"><span>Domenica</span><span>12:00–15:00 / 19:00–22:30</span></div>
+      </div>
+      <div class="info-card">
+        <div class="info-card-icon">📍</div>
+        <h3>Dove siamo</h3>
+        <p class="info-p"><strong>Via Italia 2</strong><br>84025 Eboli (SA)<br>Campania, Italia</p>
+        <p class="info-p" style="margin-top:1rem"><strong>Come raggiungerci</strong><br>A pochi passi dal centro storico di Eboli. Parcheggio gratuito in Piazza della Repubblica (2 min a piedi).</p>
+        <p class="info-p" style="margin-top:1rem;color:var(--rosso)">📞 0828 123 456<br>✉️ info@2digrano.it</p>
+      </div>
+      <div class="info-card">
+        <div class="info-card-icon">ℹ️</div>
+        <h3>Info utili</h3>
+        <p class="info-p">🪑 <strong>Coperti:</strong> 60 interni + 30 dehors</p>
+        <p class="info-p">♿ <strong>Accessibilità:</strong> Locale accessibile</p>
+        <p class="info-p">🐾 <strong>Animali:</strong> Benvenuti in dehors</p>
+        <p class="info-p">💳 <strong>Pagamenti:</strong> Contanti, carte, bancomat</p>
+        <p class="info-p">🅿️ <strong>Parcheggio:</strong> Gratuito nelle vicinanze</p>
+        <p class="info-p">📱 <strong>Social:</strong> @2digrano.eboli</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="prenota-section" id="prenota">
+  <div class="container">
+    <div class="prenota-inner">
+      <p class="section-eyebrow">Riserva il tuo posto</p>
+      <h2 class="section-title">Prenota un tavolo</h2>
+      <p>Compila il modulo e ti confermeremo la disponibilità entro poche ore. Per prenotazioni dello stesso giorno chiamaci al <strong style="color:var(--oro)">0828 123 456</strong>.</p>
+      <div class="prenota-form">
+        <div class="form-group"><label>Nome e cognome</label><input type="text" placeholder="Mario Rossi" id="f-nome"></div>
+        <div class="form-group"><label>Telefono</label><input type="tel" placeholder="333 123 4567" id="f-tel"></div>
+        <div class="form-group"><label>Data</label><input type="date" id="f-data"></div>
+        <div class="form-group"><label>Ora</label><select id="f-ora"><option value="">Seleziona orario</option><option>12:00</option><option>12:30</option><option>13:00</option><option>13:30</option><option>19:00</option><option>19:30</option><option>20:00</option><option>20:30</option><option>21:00</option><option>21:30</option></select></div>
+        <div class="form-group"><label>Numero di persone</label><select id="f-persone"><option value="">Quanti siete?</option><option>1 persona</option><option>2 persone</option><option>3 persone</option><option>4 persone</option><option>5 persone</option><option>6 persone</option><option>7-10 persone</option><option>Oltre 10 persone</option></select></div>
+        <div class="form-group"><label>Richieste speciali</label><textarea placeholder="Allergie, occasioni speciali, seggiolone..." id="f-note"></textarea></div>
+        <button class="prenota-submit" onclick="submitForm()">Invia richiesta di prenotazione</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <span class="nav-logo">2 <span>di</span> Grano</span>
+        <p>Pizzeria artigianale nel cuore di Eboli dal 1998. La vera pizza napoletana, fatta con rispetto per la tradizione e amore per la qualità.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Menu</h4>
+        <ul><li><a href="#menu">Pizze</a></li><li><a href="#menu">Antipasti</a></li><li><a href="#menu">Primi piatti</a></li><li><a href="#menu">Dolci</a></li><li><a href="#menu">Bevande</a></li></ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contatti</h4>
+        <p>Via Italia 2<br>84025 Eboli (SA)<br><br>📞 0828 123 456<br>✉️ info@2digrano.it<br><br>@2digrano.eboli</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 Pizzeria 2 di Grano — Via Italia 2, Eboli (SA) — P.IVA 04567890651</p>
+      <p>Privacy Policy · Cookie Policy</p>
+    </div>
+  </div>
+</footer>
+
+<div class="toast" id="toast">✅ Richiesta inviata! Ti contatteremo presto per confermare.</div>
+
+<script>
+function showTab(name){
+  const names=['pizze','antipasti','primi','dolci','bevande'];
+  document.querySelectorAll('.tab-btn').forEach((b,i)=>b.classList.toggle('active',names[i]===name));
+  document.querySelectorAll('.tab-content').forEach(c=>c.classList.toggle('active',c.id==='tab-'+name));
+}
+function submitForm(){
+  const nome=document.getElementById('f-nome').value;
+  const tel=document.getElementById('f-tel').value;
+  const data=document.getElementById('f-data').value;
+  const ora=document.getElementById('f-ora').value;
+  const persone=document.getElementById('f-persone').value;
+  if(!nome||!tel||!data||!ora||!persone){alert('Per favore compila tutti i campi obbligatori.');return;}
+  const toast=document.getElementById('toast');
+  toast.classList.add('show');
+  setTimeout(()=>toast.classList.remove('show'),4000);
+  ['f-nome','f-tel','f-data','f-ora','f-persone','f-note'].forEach(id=>document.getElementById(id).value='');
+}
+document.querySelectorAll('a[href^="#"]').forEach(a=>{
+  a.addEventListener('click',e=>{e.preventDefault();const t=document.querySelector(a.getAttribute('href'));if(t)t.scrollIntoView({behavior:'smooth'});});
+});
+</script>
+</body>
+</html>
